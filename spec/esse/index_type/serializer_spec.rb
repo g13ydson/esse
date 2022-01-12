@@ -35,7 +35,7 @@ RSpec.describe Esse::IndexType do
       end
 
       specify do
-        expect(DummiesIndex::Dummy.serialize(dummy, optionals)).to eq(
+        expect(DummiesIndex::Dummy.serialize(dummy, **optionals)).to eq(
           _id: 1,
           name: 'dummy',
         )
