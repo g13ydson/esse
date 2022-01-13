@@ -17,11 +17,11 @@ module Esse
       if block
         @serializer_proc = block
       elsif klass.is_a?(Class) && klass.instance_methods.include?(:to_h)
-        @serializer_proc = proc { |**args| klass.new(**args).to_h }
+        @serializer_proc = proc { |*args, **kwargs| klass.new(*args, **kwargs).to_h }
       elsif klass.is_a?(Class) && klass.instance_methods.include?(:as_json) # backward compatibility
-        @serializer_proc = proc { |**args| klass.new(**args).as_json }
+        @serializer_proc = proc { |*args, **kwargs| klass.new(*args, **kwargs).as_json }
       elsif klass.is_a?(Class) && klass.instance_methods.include?(:call)
-        @serializer_proc = proc { |**args| klass.new(**args).call }
+        @serializer_proc = proc { |*args, **kwargs| klass.new(*args, **kwargs).call }
       else
         msg = format('%<arg>p is not a valid serializer. The serializer should ' \
                       'respond with `to_h` instance method.', arg: klass,)
